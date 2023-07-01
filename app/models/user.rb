@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :books #アソシエーション
-  has_many :favorites, dependent: :destroy #Userモデルに関連付けを追加する
+  has_many :favorites, dependent: :destroy #UserモデルとFavoritesモデルを関連付ける
+  has_many :book_comments, dependent: :destroy #UserモデルとBookCommentモデルを関連付ける
   has_one_attached :profile_image
 
 

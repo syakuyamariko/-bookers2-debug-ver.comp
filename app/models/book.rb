@@ -1,6 +1,7 @@
 class Book < ApplicationRecord
   belongs_to :user #修正した
   has_many :favorites, dependent: :destroy #追加した
+  has_many :book_comments, dependent: :destroy #BookモデルとBookCommentモデルを関連付け
   has_one_attached :image #追加した
 
 
