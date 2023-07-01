@@ -10,6 +10,7 @@ before_action :is_matching_login_user, only: [:edit, :update]
   def index
     @books = Book.all
     @book = Book.new
+    @book.id = current_user.id
     @user = current_user
   end
 
