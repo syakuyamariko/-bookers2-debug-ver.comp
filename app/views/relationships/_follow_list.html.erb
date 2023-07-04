@@ -1,0 +1,9 @@
+<!--フォロー・フォロワー！使用してない！-->
+<% if users.exists? %>
+  <% users.each do |user| %>
+    フォロー数: <%= user.followings.count %>
+    フォロワー数: <%= user.followers.count %>
+  <% end %>
+<% else %>
+  <p>ユーザーはいません</p>
+<% end %>

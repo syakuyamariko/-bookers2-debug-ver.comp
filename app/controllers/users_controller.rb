@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:update, :edit]
+  #before_action :set_user, only: [:followings, :followers] #フォロワー一覧画面の表示実装で追加
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) #userをネストすることで、IDが変わってしまうため(params[:user_id])とする
     @books = @user.books
     @book = Book.new
   end
 
   def index
+    @user = User.find_by(params[:users_id]) #指定した id が存在しないことが想定される場合 → find_by メソッドを使う
     @users = User.all
     @book = Book.new
   end
@@ -24,6 +26,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def followings #フォロワー一覧画面の表示実装で追加
+    @users = @user.followings
+  end
+
+  def followers #フォロワー一覧画面の表示実装で追加
+    @users = @user.followers
+  end
+
   private
 
   def user_params
@@ -36,4 +46,6 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
-end
+
+  end
+
