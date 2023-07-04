@@ -52,11 +52,11 @@ before_action :is_matching_login_user, only: [:edit, :update]
   end
 
 
-def is_matching_login_user #追加した
-    @book = Book.find(params[:id])
-    user = User.find(@book.user_id)
-    unless user.id == current_user.id
-      redirect_to books_path
-    end
+  def is_matching_login_user #追加した
+      @book = Book.find(params[:id])
+      user = User.find(@book.user_id)
+      unless user.id == current_user.id
+        redirect_to books_path
+      end
   end
 end

@@ -1,0 +1,9 @@
+<% if user_signed_in? %> <!--ユーザーがログインしているかどうかをチェック。ログインしている場合のみ検索フォームを表示する。-->
+  <%= form_with url: search_path, method: :get, local: true do |f| %><!--フォームを作成するためのメソッド。search_pathに対してGETメソッドでフォームのデータを送信-->
+    <%= f.text_field :content %> <!--検索キーワードを入力するためのテキストフィールドを表示している。:contentは検索キーワードのパラメータ名を指定している-->
+    <%= f.select :model, options_for_select({"User" => "user", "Book" => "book"}) %> <!--検索対象のモデルを選択するためのプルダウンメニューを表示。
+    :model は選択したモデルのパラメータ名を指定している。options_for_selectメソッドは、選択肢のハッシュを受け取り、プルダウンメニューを作ります-->
+    <%= f.select :method, options_for_select({"完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
+    <%= f.submit "検索" %>
+  <% end %>
+<% end %>
