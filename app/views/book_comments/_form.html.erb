@@ -1,0 +1,14 @@
+<div>
+  <tr>
+    <%= render 'layouts/errors', obj: book_comment %> <!--バリデーション設定-->
+    <%= form_with model: [book, book_comment], local: false do |f| %>
+      <td>
+        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", id: "comment_textarea" %>
+        <!--id: "comment_textarea"を追加して、comment_textareaというIDがテキストエリアに割り当てられるようにします。-->
+          <div>
+            <%= f.submit "送信" %>
+          </div>
+      </td>
+    <% end %>
+  </tr>
+</div>
