@@ -1,11 +1,14 @@
 class Book < ApplicationRecord
-  belongs_to :user #修正した
-  has_many :favorites, dependent: :destroy #追加した
+  belongs_to :user
+  has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy #BookモデルとBookCommentモデルを関連付け
-  has_one_attached :image #追加した
+  scope :most_favorite, -> { left_joins(:favorites).select(:id, "COUNT(favorites.id) AS favorites_count").group(:id) } #お気に入り多い順に並び替え
+  has_one_attached :image
+  #scope :most_favorited, -> { includes(:favorited_users)
+  #.sort_by { |x| x.favorited_users.includes(:favorites).size }.reverse }
 
 
-  def get_image #追加した
+  def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
@@ -28,6 +31,7 @@ class Book < ApplicationRecord
       Book.where('name LIKE ?', '%' + content + '%')
     end
   end
+
 
 
   #バリデーション

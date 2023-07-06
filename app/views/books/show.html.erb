@@ -35,7 +35,6 @@
             <% if @book.user == current_user %><!--もし、本の投稿をしたユーザーと現在ログインしているユーザーが一致していたら下記を表示-->
               <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
-              <td>コメント件数：<%= @book.book_comments.count %></td>
             <% end %>
           </tr>
         </tbody>

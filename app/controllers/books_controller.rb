@@ -9,10 +9,13 @@ before_action :is_matching_login_user, only: [:edit, :update]
   end
 
   def index
-    @books = Book.all
+    #@books = Book.most_favorite.order("favorites_count DESC").select("books.*") #お気に入り多い順に並び替え
+    @books = Book.most_favorite.order("favorites_count DESC").select("books.*")
+    #@books = Book.all
     @book = Book.new
     @book.id = current_user.id
     @user = current_user
+
   end
 
   def create

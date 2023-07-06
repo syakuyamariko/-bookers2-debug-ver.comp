@@ -1,0 +1,21 @@
+<!--ランキング-->
+<% lastFavorite = 0 %>
+  <% j = 1 %>
+<% all_ranks.each.with_index(1) do |book, i| %>
+<% if i == 1 %>
+     <% lastFavorite = book.favorites.count %>
+   <% end %>
+<% if book.favorites.count != lastFavorite %>
+     <% j = i %>
+     第<%= j %>位
+     <%= book.body %>
+     いいね数：<%= book.favorites.count %>
+     <% lastFavorite = book.favorites.count %>
+   <% else %>
+     <% lastFavorite = book.favorites.count %>
+     第<%= j %>位
+     <%= book.body %>
+     いいね数：<%= book.favorites.count %>
+    <% end %>
+  <br>
+ <% end %>
