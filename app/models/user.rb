@@ -12,7 +12,10 @@ class User < ApplicationRecord
   # フォロー・フォロワーの一覧画面で使う
   has_many :followings, through: :relationships, source: :followed #throughでスルーするテーブル、sourceで参照するカラムを指定。
   has_many :followers, through: :reverse_of_relationships, source: :follower
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
   has_one_attached :profile_image
+
 
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
@@ -37,7 +40,7 @@ def following?(user)
   followings.include?(user)
 end
 
-
+# 検索方法分岐
 def self.search_for(content, method)
   if method == 'perfect'
     User.where(name: content)
